@@ -28,7 +28,7 @@
       --fs-md: 1rem;
       --fs-lg: 1.25rem;
       --fs-xl: 2rem;
-      --fs-hero: clamp(2.2rem, 7vw, 4.8rem);
+      --fs-hero: clamp(1.4rem, 3.5vw, 2.4rem);
 
       --space-1: 0.5rem;
       --space-2: 1rem;
@@ -212,6 +212,19 @@
       border-radius: 999px;
     }
 
+    .student-info {
+      display: inline-flex;
+      width: fit-content;
+      padding: 0.35rem 0.75rem;
+      margin-bottom: var(--space-1);
+      font-size: var(--fs-xs);
+      font-weight: 700;
+      color: var(--color-primary-dark);
+      background: rgba(155, 184, 168, 0.18);
+      border: 1px solid rgba(155, 184, 168, 0.35);
+      border-radius: 999px;
+    }
+
     .hero h1 {
       margin: 0;
       font-size: var(--fs-hero);
@@ -224,19 +237,6 @@
       margin: var(--space-2) 0 0;
       font-size: var(--fs-lg);
       color: var(--color-muted);
-    }
-    
-    .student-info {
-      display: inline-flex;
-      width: fit-content;
-      padding: 0.45rem 0.85rem;
-      margin-top: var(--space-2);
-      font-size: var(--fs-sm);
-      font-weight: 600;
-      color: var(--color-primary-dark);
-      background: rgba(155, 184, 168, 0.16);
-      border: 1px solid rgba(155, 184, 168, 0.35);
-      border-radius: 999px;
     }
 
     .hero-card {
@@ -421,14 +421,12 @@
     <section class="hero">
       <div class="container hero-grid">
         <article>
+          <span class="student-info">學號：111316033　｜　學生：謝百泓</span>
           <span class="eyebrow">Object Detection Algorithm</span>
           <h1>YOLO演算法介紹與AI輔助學習</h1>
           <p>
             YOLO，全名 You Only Look Once，是一種即時物件偵測演算法。
             它能在單張影像中快速找出物體位置，並判斷物體類別。
-          </p>
-          <p class="student-info">
-            學號：111316033　｜　學生：謝百泓
           </p>
         </article>
 
