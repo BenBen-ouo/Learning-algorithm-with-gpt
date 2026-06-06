@@ -3,25 +3,28 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <meta name="description" content="YOLO 演算法介紹、AI 輔助學習紀錄、查證修正、視覺化說明、應用案例與學習反思。" />
-  <title>YOLO 演算法介紹與 AI 輔助學習</title>
+  <meta
+    name="description"
+    content="YOLO 演算法自學筆記：演算法介紹、GPT 輔助學習紀錄、查證修正、流程圖說明、應用案例與學習反思。"
+  />
+  <title>YOLO 演算法介紹與 GPT 輔助學習</title>
 
   <style>
     :root {
-      --bg: #f6f1e8;
+      --bg: #f7f2ea;
       --surface: #fffaf2;
-      --surface-soft: #f1eadf;
-      --primary: #9bb8a8;
-      --primary-dark: #4f7567;
+      --surface-soft: #f0e8dc;
+      --primary: #8fb3a2;
+      --primary-dark: #456f61;
       --text: #1f2933;
-      --muted: #6b7280;
+      --muted: #667085;
       --border: #ded6c9;
       --white: #ffffff;
-      --shadow: 0 18px 45px rgba(45, 38, 30, 0.09);
+      --shadow: 0 18px 45px rgba(45, 38, 30, 0.08);
+      --max-width: 1080px;
       --radius-sm: 0.75rem;
       --radius-md: 1.25rem;
       --radius-lg: 2rem;
-      --max-width: 1120px;
       --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
         "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
@@ -37,11 +40,11 @@
     body {
       margin: 0;
       font-family: var(--font-main);
-      line-height: 1.75;
+      line-height: 1.8;
       color: var(--text);
       background:
-        radial-gradient(circle at top left, rgba(155, 184, 168, 0.28), transparent 28rem),
-        radial-gradient(circle at bottom right, rgba(255, 250, 242, 0.8), transparent 30rem),
+        radial-gradient(circle at top left, rgba(143, 179, 162, 0.24), transparent 30rem),
+        radial-gradient(circle at bottom right, rgba(255, 250, 242, 0.8), transparent 32rem),
         var(--bg);
     }
 
@@ -58,15 +61,15 @@
 
     .container {
       width: min(100% - 2rem, var(--max-width));
-      margin: 0 auto;
+      margin-inline: auto;
     }
 
     .site-header {
       position: sticky;
       top: 0;
       z-index: 20;
-      background: rgba(246, 241, 232, 0.82);
-      border-bottom: 1px solid rgba(222, 214, 201, 0.8);
+      background: rgba(247, 242, 234, 0.84);
+      border-bottom: 1px solid rgba(222, 214, 201, 0.85);
       backdrop-filter: blur(16px);
     }
 
@@ -74,7 +77,7 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      min-height: 4.5rem;
+      min-height: 4.4rem;
     }
 
     .brand {
@@ -126,7 +129,7 @@
 
     .nav-list {
       position: absolute;
-      top: 4.5rem;
+      top: 4.4rem;
       left: 1rem;
       right: 1rem;
       display: none;
@@ -141,7 +144,7 @@
 
     .nav-list.is-open {
       display: grid;
-      gap: 0.35rem;
+      gap: 0.3rem;
     }
 
     .nav-list a {
@@ -158,86 +161,63 @@
     }
 
     .hero {
-      padding: 4.5rem 0 3rem;
+      padding: 5.5rem 0 4rem;
+      text-align: center;
     }
 
-    .hero-grid {
-      display: grid;
-      gap: 2rem;
-      align-items: center;
-    }
-
-    .pill {
-      display: inline-flex;
-      width: fit-content;
-      padding: 0.35rem 0.8rem;
-      margin: 0 0 0.75rem;
-      font-size: 0.85rem;
-      font-weight: 700;
-      color: var(--primary-dark);
-      background: rgba(155, 184, 168, 0.18);
-      border: 1px solid rgba(155, 184, 168, 0.36);
-      border-radius: 999px;
+    .hero-title {
+      max-width: 850px;
+      margin: 0 auto;
     }
 
     .hero h1 {
       margin: 0;
-      font-size: clamp(2rem, 5vw, 4.25rem);
-      line-height: 1.05;
-      letter-spacing: -0.08em;
+      font-size: clamp(2.5rem, 7vw, 5.5rem);
+      line-height: 1.02;
+      letter-spacing: -0.09em;
+      font-weight: 900;
     }
 
-    .hero p {
-      max-width: 43rem;
-      margin: 1.25rem 0 0;
+    .hero-meta {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.8rem 1rem;
+      margin: 1.2rem 0 0;
       color: var(--muted);
-      font-size: 1.15rem;
+      font-size: 0.95rem;
     }
 
-    .hero-card {
-      padding: 1.5rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
-      box-shadow: var(--shadow);
+    .hero-meta span {
+      position: relative;
     }
 
-    .info-grid {
-      display: grid;
-      gap: 0.75rem;
-      margin-top: 1.25rem;
+    .hero-meta span + span::before {
+      content: "•";
+      margin-right: 1rem;
+      color: var(--primary-dark);
     }
 
-    .info-item {
-      padding: 1rem;
-      background: var(--surface);
-      border: 1px solid var(--border);
-      border-radius: var(--radius-md);
-    }
-
-    .info-item span {
-      display: block;
+    .hero-intro {
+      max-width: 720px;
+      margin: 2rem auto 0;
       color: var(--muted);
-      font-size: 0.85rem;
-    }
-
-    .info-item strong {
-      display: block;
-      margin-top: 0.15rem;
+      font-size: 1.12rem;
+      text-align: left;
     }
 
     .section {
       padding: 3.5rem 0;
-      border-top: 1px solid rgba(222, 214, 201, 0.7);
+      border-top: 1px solid rgba(222, 214, 201, 0.75);
     }
 
     .section-title {
-      margin-bottom: 1.5rem;
+      margin-bottom: 1.4rem;
     }
 
     .section-title span {
       display: inline-flex;
-      margin-bottom: 0.5rem;
+      margin-bottom: 0.45rem;
       color: var(--primary-dark);
       font-weight: 800;
       font-size: 0.9rem;
@@ -245,12 +225,13 @@
 
     .section-title h2 {
       margin: 0;
-      font-size: clamp(1.6rem, 3vw, 2.4rem);
-      letter-spacing: -0.06em;
+      font-size: clamp(1.55rem, 3vw, 2.35rem);
+      line-height: 1.25;
+      letter-spacing: -0.055em;
     }
 
     .section-title p {
-      max-width: 46rem;
+      max-width: 760px;
       margin: 0.75rem 0 0;
       color: var(--muted);
     }
@@ -262,14 +243,15 @@
 
     .card {
       padding: 1.35rem;
-      background: rgba(255, 250, 242, 0.85);
+      background: rgba(255, 250, 242, 0.86);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
     }
 
     .card h3 {
-      margin: 0 0 0.6rem;
+      margin: 0 0 0.65rem;
       font-size: 1.15rem;
+      line-height: 1.35;
     }
 
     .card p {
@@ -277,25 +259,25 @@
       color: var(--muted);
     }
 
-    .tag-list {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 0.6rem;
-      padding: 0;
-      margin: 1rem 0 0;
-      list-style: none;
+    .intro-card {
+      display: grid;
+      gap: 1rem;
     }
 
-    .tag-list li {
-      padding: 0.45rem 0.75rem;
-      color: var(--primary-dark);
-      background: rgba(155, 184, 168, 0.15);
-      border-radius: 999px;
-      font-size: 0.9rem;
-      font-weight: 700;
+    .intro-main {
+      padding: 1.5rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
     }
 
-    .flow {
+    .intro-main p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .flow-list {
       display: grid;
       gap: 0.75rem;
       padding: 0;
@@ -304,7 +286,7 @@
       counter-reset: step;
     }
 
-    .flow li {
+    .flow-list li {
       position: relative;
       padding: 1rem 1rem 1rem 3.2rem;
       color: var(--muted);
@@ -313,13 +295,12 @@
       border-radius: var(--radius-md);
     }
 
-    .flow li::before {
+    .flow-list li::before {
       counter-increment: step;
       content: counter(step);
       position: absolute;
       left: 1rem;
-      top: 50%;
-      transform: translateY(-50%);
+      top: 1.1rem;
       display: grid;
       place-items: center;
       width: 1.55rem;
@@ -331,77 +312,163 @@
       font-weight: 800;
     }
 
-    .table-wrap {
-      overflow-x: auto;
-      margin-top: 1rem;
+    .application-layout {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .application-tags {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 0.75rem;
+      padding: 0;
+      margin: 0;
+      list-style: none;
+    }
+
+    .application-tags li {
+      padding: 0.9rem 1rem;
+      color: var(--primary-dark);
+      background: rgba(143, 179, 162, 0.14);
+      border: 1px solid rgba(143, 179, 162, 0.24);
+      border-radius: var(--radius-sm);
+      font-weight: 700;
+    }
+
+    .chat-wrap {
+      display: grid;
+      gap: 1.2rem;
+    }
+
+    .chat-pair {
+      display: grid;
+      gap: 0.75rem;
+    }
+
+    .chat-bubble {
+      position: relative;
+      max-width: 850px;
+      padding: 1rem 1.15rem;
+      border-radius: 1.2rem;
       border: 1px solid var(--border);
-      border-radius: var(--radius-md);
+    }
+
+    .chat-bubble strong {
+      display: block;
+      margin-bottom: 0.35rem;
+    }
+
+    .chat-bubble p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .chat-bubble.user {
+      margin-right: auto;
       background: var(--surface);
     }
 
-    table {
-      width: 100%;
-      min-width: 720px;
-      border-collapse: collapse;
+    .chat-bubble.gpt {
+      margin-left: auto;
+      background: rgba(143, 179, 162, 0.14);
     }
 
-    th,
-    td {
-      padding: 0.9rem 1rem;
-      text-align: left;
-      border-bottom: 1px solid var(--border);
-      vertical-align: top;
-    }
-
-    th {
-      color: var(--primary-dark);
-      background: rgba(155, 184, 168, 0.16);
-    }
-
-    tr:last-child td {
-      border-bottom: 0;
-    }
-
-    .visual-box {
+    .verify-grid {
       display: grid;
-      gap: 0.75rem;
-      padding: 1.25rem;
+      gap: 1rem;
+    }
+
+    .figure-card {
+      padding: 1.35rem;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
     }
 
-    .visual-row {
+    .figure-card img {
+      width: 100%;
+      border-radius: var(--radius-md);
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+    }
+
+    .figure-caption {
+      margin: 0.9rem 0 0;
+      color: var(--muted);
+      font-size: 0.95rem;
+    }
+
+    .explain-list {
       display: grid;
-      gap: 0.75rem;
+      gap: 0.85rem;
+      padding: 0;
+      margin: 1rem 0 0;
+      list-style: none;
     }
 
-    .visual-step {
+    .explain-list li {
       padding: 1rem;
-      text-align: center;
+      background: rgba(255, 250, 242, 0.86);
       border: 1px solid var(--border);
       border-radius: var(--radius-md);
-      background: rgba(155, 184, 168, 0.12);
-      font-weight: 800;
-      color: var(--primary-dark);
+      color: var(--muted);
     }
 
-    .arrow {
+    .explain-list strong {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+    }
+
+    .pros-cons {
       display: grid;
-      place-items: center;
+      gap: 1rem;
+      margin-top: 1rem;
+    }
+
+    .pros-cons ul {
+      padding-left: 1.25rem;
+      margin: 0;
       color: var(--muted);
-      font-weight: 800;
+    }
+
+    .pros-cons li + li {
+      margin-top: 0.45rem;
+    }
+
+    .reflection {
+      padding: 1.6rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      box-shadow: var(--shadow);
+    }
+
+    .reflection p {
+      margin: 0;
+      color: var(--muted);
+    }
+
+    .reflection p + p {
+      margin-top: 1rem;
     }
 
     .source-list {
-      padding-left: 1.2rem;
+      padding-left: 1.25rem;
       color: var(--muted);
+      word-break: break-word;
+    }
+
+    .source-list li + li {
+      margin-top: 0.5rem;
     }
 
     .site-footer {
       padding: 2rem 0;
       color: var(--muted);
       border-top: 1px solid var(--border);
+      font-size: 0.95rem;
     }
 
     @media (min-width: 768px) {
@@ -419,25 +486,24 @@
         box-shadow: none;
       }
 
-      .hero-grid {
-        grid-template-columns: 1.2fr 0.8fr;
-      }
-
-      .info-grid {
-        grid-template-columns: repeat(3, 1fr);
-      }
-
-      .card-grid.two {
-        grid-template-columns: repeat(2, 1fr);
+      .card-grid.two,
+      .intro-card,
+      .verify-grid,
+      .pros-cons {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
       }
 
       .card-grid.three {
-        grid-template-columns: repeat(3, 1fr);
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
 
-      .visual-row {
-        grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
-        align-items: center;
+      .application-layout {
+        grid-template-columns: 1.1fr 0.9fr;
+        align-items: start;
+      }
+
+      .application-tags {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
       }
     }
   </style>
@@ -446,19 +512,19 @@
 <body>
   <header class="site-header">
     <nav class="nav container" aria-label="主要導覽">
-      <a class="brand" href="#top">YOLO Algorithm Learning Portfolio</a>
+      <a class="brand" href="#top">YOLO Learning Notes</a>
 
       <button class="nav-toggle" type="button" aria-label="開啟導覽選單" aria-expanded="false">
         <span aria-hidden="true"></span>
       </button>
 
       <ul class="nav-list">
-        <li><a href="#task1">演算法介紹</a></li>
-        <li><a href="#task2">AI 學習紀錄</a></li>
-        <li><a href="#task3">查證修正</a></li>
-        <li><a href="#task4">視覺化</a></li>
-        <li><a href="#task5">應用案例</a></li>
-        <li><a href="#task6">學習反思</a></li>
+        <li><a href="#intro">YOLO 簡介</a></li>
+        <li><a href="#gpt-learning">GPT 輔助學習</a></li>
+        <li><a href="#verify">查證修正</a></li>
+        <li><a href="#visual">流程圖說明</a></li>
+        <li><a href="#case">應用案例</a></li>
+        <li><a href="#reflection">學習反思</a></li>
         <li><a href="#sources">資料來源</a></li>
       </ul>
     </nav>
@@ -466,326 +532,368 @@
 
   <main id="top">
     <section class="hero">
-      <div class="container hero-grid">
-        <article>
-          <span class="pill">Deep Learning Computer Vision 期末評量</span>
-          <h1>YOLO 演算法介紹與 AI 輔助學習</h1>
-          <p>
-            本網頁以 YOLO（You Only Look Once）為主題，整理它的核心概念、
-            運作流程、AI 輔助學習紀錄、查證修正、視覺化說明與實際應用案例。
-          </p>
+      <div class="container hero-title">
+        <h1>YOLO 演算法介紹與 GPT 輔助學習</h1>
 
-          <div class="info-grid">
-            <div class="info-item">
-              <span>學號</span>
-              <strong>111316033</strong>
-            </div>
-            <div class="info-item">
-              <span>姓名</span>
-              <strong>謝百泓</strong>
-            </div>
-            <div class="info-item">
-              <span>主題</span>
-              <strong>YOLO 物件偵測演算法</strong>
-            </div>
-          </div>
-        </article>
+        <div class="hero-meta" aria-label="學生資料">
+          <span>111316033</span>
+          <span>謝百泓</span>
+        </div>
 
-        <article class="hero-card">
-          <img
-            src="https://placehold.co/720x480/f1eadf/4f7567?text=YOLO+Object+Detection"
-            alt="YOLO 物件偵測示意圖"
-          />
-        </article>
+        <p class="hero-intro">
+          這份網頁筆記是我在學習 YOLO 物件偵測演算法時整理出來的內容。
+          一開始我只大概知道 YOLO 可以把圖片中的物體框出來，但對於 grid cell、
+          bounding box、confidence score、NMS 和 mAP 這些名詞其實沒有很完整的概念。
+          所以我主要透過網路文章、他人的筆記整理，再搭配 GPT 協助釐清卡住的地方，
+          最後把我理解後的內容整理成這份自學紀錄。
+        </p>
       </div>
     </section>
 
-    <section id="task1" class="section">
+    <section id="intro" class="section">
       <div class="container">
         <div class="section-title">
           <span>Task 01 · 演算法介紹</span>
-          <h2>什麼是 YOLO？</h2>
+          <h2>YOLO 簡介</h2>
           <p>
-            YOLO 是一種物件偵測演算法，主要用來在圖片或影片中找出物體位置，
-            並同時判斷物體類別。它的特色是速度快，適合即時影像辨識。
+            YOLO，全名是 You Only Look Once，是物件偵測領域中很常被介紹到的演算法。
+            它不是只判斷圖片裡「有什麼東西」，而是要同時回答物體的類別、位置，以及模型對這個判斷的信心程度。
           </p>
         </div>
 
-        <div class="card-grid two">
-          <article class="card">
-            <h3>1.1 這個演算法做什麼？</h3>
+        <div class="intro-card">
+          <article class="intro-main">
+            <h3>它主要在做什麼？</h3>
             <p>
-              YOLO 可以在單張影像中偵測多個物體，輸出每個物體的
-              Bounding Box、類別名稱與信心分數。例如在道路影像中同時偵測汽車、
-              行人、紅綠燈與交通標誌。
+              YOLO 的工作是 object detection，也就是在一張圖片或影片畫面中找出多個物體，
+              並用 bounding box 把物體位置框起來。每個框通常會搭配類別名稱與 confidence score，
+              例如「person 0.91」、「car 0.86」。因此它和一般 image classification 不同，
+              因為分類模型通常只輸出整張圖片的類別，而 YOLO 還要指出物體在畫面中的位置。
             </p>
           </article>
 
-          <article class="card">
-            <h3>1.2 主要解決什麼問題？</h3>
+          <article class="intro-main">
+            <h3>它解決的問題</h3>
             <p>
-              傳統影像辨識通常只回答「圖片中有什麼」，但 YOLO 解決的是
-              「物體在哪裡、是什麼、可信度多高」的問題，因此更適合監控、
-              自動駕駛、醫學影像與工業檢測。
+              在實際影像任務裡，我們常常不只想知道畫面中有沒有某種物體，
+              而是想知道物體出現在哪裡、數量有多少、是否重疊、是否需要即時反應。
+              YOLO 的價值就在於把定位與分類整合在同一個模型流程中，
+              讓物件偵測可以更接近即時應用，例如交通監控、醫學影像輔助判讀、工業檢測和無人機巡檢。
+            </p>
+          </article>
+        </div>
+
+        <div class="application-layout" style="margin-top: 1rem;">
+          <article class="card">
+            <h3>常見應用</h3>
+            <p>
+              YOLO 的特色是能在速度與偵測效果之間取得不錯的平衡，因此很適合需要快速分析影像的情境。
+              不同應用會重視不同指標，例如交通場景可能重視即時性，醫學或工業檢測則會更在意漏判與誤判的成本。
             </p>
           </article>
 
-          <article class="card">
-            <h3>1.3 基本運作流程</h3>
-            <p>
-              YOLO 的核心想法是「You Only Look Once」：模型只看一次整張圖片，
-              就直接預測所有物件的位置與類別，不需要重複掃描影像。
-            </p>
-
-            <ol class="flow">
-              <li>輸入圖片或影片中的單一畫面。</li>
-              <li>透過 CNN Backbone 擷取影像特徵。</li>
-              <li>模型預測多個候選 Bounding Box。</li>
-              <li>計算每個框的類別與 confidence score。</li>
-              <li>使用 NMS 移除重複或重疊過高的框。</li>
-              <li>輸出最終偵測結果。</li>
-            </ol>
-          </article>
-
-          <article class="card">
-            <h3>1.4 常見應用</h3>
-            <p>
-              YOLO 適合需要即時判斷畫面內容的場景。
-            </p>
-
-            <ul class="tag-list">
-              <li>自動駕駛</li>
-              <li>監視器辨識</li>
-              <li>醫學影像</li>
-              <li>工業瑕疵檢測</li>
-              <li>農業辨識</li>
-              <li>無人機巡檢</li>
-            </ul>
-          </article>
+          <ul class="application-tags" aria-label="YOLO 常見應用">
+            <li>自動駕駛</li>
+            <li>監視器辨識</li>
+            <li>醫學影像</li>
+            <li>工業瑕疵檢測</li>
+            <li>農業辨識</li>
+            <li>無人機巡檢</li>
+          </ul>
         </div>
       </div>
     </section>
 
-    <section id="task2" class="section">
+    <section id="gpt-learning" class="section">
       <div class="container">
         <div class="section-title">
-          <span>Task 02 · AI 輔助學習紀錄</span>
-          <h2>我如何用 AI 學習 YOLO？</h2>
+          <span>Task 02 · GPT 輔助學習紀錄</span>
+          <h2>使用 GPT 輔助我學習 YOLO</h2>
           <p>
-            這一段記錄我向 AI 詢問的問題、AI 回答的重點，以及這些回答如何幫助我理解 YOLO。
+            只用網路上的資源學習仍然有部分不理解的地方，搭配 GPT 的輔助，釐清我不熟悉的內容。
           </p>
         </div>
 
-        <div class="table-wrap">
-          <table>
-            <thead>
-              <tr>
-                <th>我問 AI 的問題</th>
-                <th>AI 回答重點</th>
-                <th>對我的幫助</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td>YOLO 和一般 CNN 分類模型差在哪裡？</td>
-                <td>CNN 分類通常只判斷整張圖片類別；YOLO 則會同時預測物體位置與類別。</td>
-                <td>讓我理解「classification」和「object detection」不是同一件事。</td>
-              </tr>
-              <tr>
-                <td>Bounding Box 是什麼？</td>
-                <td>Bounding Box 是包住物體的矩形框，通常包含中心點座標、寬、高與信心分數。</td>
-                <td>讓我能看懂 YOLO 輸出結果中的框線代表什麼。</td>
-              </tr>
-              <tr>
-                <td>NMS 為什麼重要？</td>
-                <td>NMS 會刪除重複偵測到的框，只保留最有信心的預測框。</td>
-                <td>幫助我理解為什麼模型一開始會產生很多框，但最後只留下少數結果。</td>
-              </tr>
-              <tr>
-                <td>YOLO 為什麼適合即時偵測？</td>
-                <td>因為 YOLO 是 single-stage detector，不需要分成候選區域產生與分類兩個階段。</td>
-                <td>讓我知道 YOLO 的速度優勢來自整體架構設計。</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
+        <div class="chat-wrap">
+          <div class="chat-pair">
+            <div class="chat-bubble user">
+              <strong>我問 GPT：</strong>
+              <p>
+                我看文章時知道 YOLO 會把圖片切成 grid cell，但我不太懂：
+                如果一個物體橫跨好幾格，到底是哪一格要負責預測這個物體？
+              </p>
+            </div>
 
-        <article class="card" style="margin-top: 1rem;">
-          <h3>AI 對話紀錄小結</h3>
-          <p>
-            AI 對我最大的幫助，是把 YOLO 拆成「輸入影像 → 特徵擷取 → 預測框 → 分類 →
-            NMS → 輸出結果」這幾個步驟。這讓我不只是背 YOLO 的定義，而是能理解整個偵測流程。
-          </p>
-        </article>
+            <div class="chat-bubble gpt">
+              <strong>GPT 回答節錄：</strong>
+              <p>
+                YOLO 的概念不是讓物體碰到的每一格都負責，而是看物體中心點落在哪一個 grid cell。
+                中心點所在的那格會負責預測這個物體的 bounding box。這樣可以避免每個物體被太多格同時負責，
+                但如果物體很小、很密集或中心點很接近，就可能造成偵測困難。
+              </p>
+            </div>
+          </div>
+
+          <div class="chat-pair">
+            <div class="chat-bubble user">
+              <strong>我問 GPT：</strong>
+              <p>
+                YOLO 的 confidence score 是不是就等於「這個框裡面有某個類別」的機率？
+                還是它其實跟 bounding box 的準確度也有關？
+              </p>
+            </div>
+
+            <div class="chat-bubble gpt">
+              <strong>GPT 回答節錄：</strong>
+              <p>
+                在 YOLOv1 的概念中，confidence score 不只是單純的類別機率，
+                它包含「框中是否有物體」以及「預測框和真實框重疊程度」的概念。
+                所以它和 IoU 有關。真正判斷類別時，還會再結合 class probability，
+                得到每個類別對應的分數。
+              </p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    <section id="task3" class="section">
+    <section id="verify" class="section">
       <div class="container">
         <div class="section-title">
           <span>Task 03 · 查證與修正</span>
-          <h2>查證 AI 回答是否正確</h2>
+          <h2>查證 GPT 輔助我的內容是否正確</h2>
           <p>
-            我選擇查證 AI 回答中的一個重點：「YOLO 是 single-stage detector，因此速度較快」。
+            GPT 在解釋 confidence score 時有提到它和 IoU 有關，但我一開始覺得有點矛盾：
+            如果 confidence 是模型對類別的信心，那為什麼又會牽涉到預測框和真實框的重疊程度？
+            因為這個地方會影響我後面理解 mAP、NMS 和偵測結果的判讀，所以我另外搜尋文章確認。
           </p>
         </div>
 
-        <div class="card-grid two">
+        <div class="verify-grid">
           <article class="card">
-            <h3>3.1 AI 提供的說法</h3>
+            <h3>3.1 GPT 提供的說法</h3>
             <p>
-              AI 說 YOLO 屬於 single-stage detector，會直接從影像中預測物體位置與類別，
-              不需要先產生候選區域，所以速度比 two-stage detector 更快。
+              GPT 說 YOLO 的 confidence score 不是單純的分類機率，而是和「是否有物體」以及
+              「bounding box 預測得準不準」有關。也就是說，一個框即使類別看起來像某個物體，
+              但如果框的位置和大小不準，最後的分數仍然可能受到影響。
             </p>
           </article>
 
           <article class="card">
-            <h3>3.2 查證後的理解</h3>
+            <h3>3.2 修正前理解</h3>
             <p>
-              這個說法大方向正確。不過需要補充的是，速度快不代表所有情況下都一定最準確。
-              實際效果會受到模型版本、資料集品質、訓練方式、影像解析度與硬體效能影響。
+              我原本把 confidence score 想成「模型覺得它是某類物體的機率」，
+              所以會把它和 class probability 混在一起。這樣理解會造成一個問題：
+              我會忽略 bounding box 本身的準確度，只注意類別名稱和數字高低。
             </p>
           </article>
 
           <article class="card">
-            <h3>3.3 修正前理解</h3>
+            <h3>3.3 搜尋更多資料後得到的內容</h3>
             <p>
-              我原本容易把 YOLO 理解成「只要用 YOLO 就一定最快、最好」。
+              我查到 YOLOv1 的說明中，confidence 和 bounding box 與 ground truth 的 IoU 有關；
+              而每個 grid cell 還會預測類別的條件機率。測試階段會把 bounding box 的 confidence
+              和 class probability 結合，得到 class-specific confidence score。
+              因此，confidence、class probability、IoU 其實是相關但不同的概念。
             </p>
           </article>
 
           <article class="card">
             <h3>3.4 修正後理解</h3>
             <p>
-              YOLO 的優勢是即時偵測與整體效率，但模型選擇仍要看任務需求。
-              如果是醫學影像或高精度檢測，除了速度，也要重視 precision、recall 與 mAP。
+              我後來比較能理解 YOLO 的輸出不是只有「這是什麼類別」，
+              而是同時包含「哪裡有物體」、「框得準不準」、「它屬於哪一類」。
+              這也讓我理解為什麼物件偵測不能只用 accuracy 判斷好壞，而需要看 IoU、precision、
+              recall、AP 和 mAP 這類指標。
             </p>
           </article>
         </div>
+
+        <article class="reflection" style="margin-top: 1rem;">
+          <p>
+            這一段查證讓我發現，GPT 比較適合用來幫我把卡住的概念先講順，
+            但只看 GPT 的回答還不夠。因為 YOLO 的名詞彼此很接近，像 confidence score、
+            class probability、IoU 和 mAP，如果沒有回去對照筆記文章或論文架構，很容易以為自己懂了，
+            但其實只是把幾個名詞連在一起。
+          </p>
+          <p>
+            透過這次比對資料，我比較能用自己的方式理解：YOLO 的輸出是一組「位置 + 類別 + 信心」的組合，
+            而不是單一的分類答案。這個理解也銜接到後面流程圖的部分，因為整個流程從影像輸入、
+            CNN 特徵擷取、grid cell 預測、bounding box 評分，到最後 NMS 篩選，其實都是為了把這組結果整理出來。
+          </p>
+        </article>
       </div>
     </section>
 
-    <section id="task4" class="section">
+    <section id="visual" class="section">
       <div class="container">
         <div class="section-title">
           <span>Task 04 · 視覺化說明</span>
-          <h2>YOLO 基本流程圖</h2>
+          <h2>YOLO 流程圖與詳細說明</h2>
           <p>
-            下圖用簡化流程說明 YOLO 如何從一張圖片產生最後的偵測結果。
+            這一節放入 YOLO 的流程圖，並用我自己的理解拆解圖中的每個階段。
+            圖片請放在 <strong>assets/images/yolo-flow.png</strong>。
           </p>
         </div>
 
-        <div class="visual-box">
-          <div class="visual-row">
-            <div class="visual-step">Input Image</div>
-            <div class="arrow">→</div>
-            <div class="visual-step">CNN Backbone</div>
-            <div class="arrow">→</div>
-            <div class="visual-step">Bounding Box Prediction</div>
-            <div class="arrow">→</div>
-            <div class="visual-step">Final Detection</div>
-          </div>
-        </div>
+        <article class="figure-card">
+          <img
+            src="assets/images/yolo-flow.png"
+            alt="YOLO 物件偵測流程圖"
+          />
+          <p class="figure-caption">
+            圖片建議使用 Tommy Huang Medium 文章〈深度學習-物件偵測: You Only Look Once (YOLO)〉中，
+            「YOLO物件偵測怎麼做的」段落下方那張說明 grid cell、bounding box、class probability
+            和 final detection 的圖。
+          </p>
+        </article>
 
-        <div class="card-grid three" style="margin-top: 1rem;">
-          <article class="card">
-            <h3>Input Image</h3>
-            <p>輸入一張圖片或影片中的一幀畫面。</p>
-          </article>
+        <ul class="explain-list">
+          <li>
+            <strong>1. 輸入影像與 resize</strong>
+            YOLO 會先把輸入圖片調整成固定尺寸，讓模型可以用一致的格式處理影像。
+            這個步驟看似只是調整大小，但其實會影響後面物體框的位置比例，
+            所以實際使用時通常也要注意影像解析度和物體大小。
+          </li>
 
-          <article class="card">
-            <h3>Feature Extraction</h3>
-            <p>利用 CNN 擷取邊緣、形狀、紋理與高階語意特徵。</p>
-          </article>
+          <li>
+            <strong>2. CNN 擷取特徵</strong>
+            接著影像會進入卷積神經網路。CNN 會從低階特徵開始擷取，例如邊緣、線條、顏色變化，
+            再逐漸形成較高階的形狀與物體特徵。YOLO 的速度優勢來自它直接用一個網路流程處理整張圖，
+            不需要先另外產生大量候選區域。
+          </li>
 
-          <article class="card">
-            <h3>Detection Output</h3>
-            <p>輸出物體框、類別名稱與信心分數。</p>
-          </article>
-        </div>
+          <li>
+            <strong>3. Grid cell 負責預測</strong>
+            YOLO 會把影像切成 S × S 的 grid。當某個物體的中心點落在某一格，
+            那一格就負責預測該物體。這個設定讓每個物體有明確的負責區域，
+            但也解釋了為什麼 YOLO 在處理很小、很密集或彼此靠很近的物體時可能比較困難。
+          </li>
+
+          <li>
+            <strong>4. Bounding box、confidence 與 class probability</strong>
+            每個 grid cell 會預測 bounding box 的位置與大小，並估計 confidence score。
+            同時，模型也會預測該區域可能屬於哪些類別。最後會將位置、是否有物體、
+            框的重疊程度和類別機率整合，形成每個候選框的分數。
+          </li>
+
+          <li>
+            <strong>5. NMS 篩選最終結果</strong>
+            模型一開始可能會產生很多重疊的框。NMS 會根據分數和框之間的重疊程度，
+            移除重複性太高的框，保留最能代表該物體的位置。最後畫面上才會只剩下較乾淨的偵測結果。
+          </li>
+        </ul>
       </div>
     </section>
 
-    <section id="task5" class="section">
+    <section id="case" class="section">
       <div class="container">
         <div class="section-title">
           <span>Task 05 · 應用案例</span>
-          <h2>YOLO 的實際應用情境</h2>
+          <h2>YOLO 的實際應用情境：醫學影像輔助偵測</h2>
           <p>
-            我選擇「醫學影像輔助判讀」作為 YOLO 的應用案例，因為它能幫助快速標出影像中可能需要注意的區域。
+            我選擇醫學影像作為應用案例，因為它很適合說明 YOLO 在「快速找出可能目標位置」上的價值，
+            也能看出物件偵測演算法在高風險場景中不能只追求速度。
           </p>
         </div>
 
-        <div class="card-grid two">
+        <article class="card">
+          <h3>案例說明</h3>
+          <p>
+            在醫學影像中，YOLO 可以用來協助標記 X 光片、超音波、內視鏡影像或顯微影像中的可疑目標。
+            例如在大量影像中先找出疑似病灶、異常組織、細胞型態變化，或是醫療器材的位置。
+            它的角色比較像是「初步篩選與提示工具」：先把可能需要注意的地方框出來，
+            讓專業人員可以更有效率地檢查，而不是從零開始逐張影像尋找。
+          </p>
+        </article>
+
+        <div class="pros-cons">
           <article class="card">
-            <h3>案例：醫學影像輔助偵測</h3>
-            <p>
-              在醫學影像中，YOLO 可以協助標記 X 光片、超音波或顯微影像中的可疑區域。
-              例如偵測病灶、細胞、異常組織或醫療器材位置。
-            </p>
+            <h3>Pros</h3>
+            <ul>
+              <li>可以快速處理大量影像，適合用在初步篩選或輔助標記。</li>
+              <li>輸出結果是 bounding box，判讀者能直接看到模型注意的位置。</li>
+              <li>如果資料集標註品質良好，可以協助降低重複性檢查的負擔。</li>
+              <li>能和人工判讀搭配，讓醫師或研究人員優先檢查高風險區域。</li>
+            </ul>
           </article>
 
           <article class="card">
-            <h3>為什麼適合？</h3>
-            <p>
-              醫學影像資料通常需要快速初步篩選。YOLO 可以先標出可能有問題的位置，
-              再交由專業人員進一步判讀，提升工作效率。
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>限制</h3>
-            <p>
-              醫學影像不能只依賴 AI 結果，因為誤判可能影響診斷。
-              因此 YOLO 比較適合作為輔助工具，而不是完全取代醫師或專業判讀者。
-            </p>
-          </article>
-
-          <article class="card">
-            <h3>延伸應用</h3>
-            <p>
-              除了醫學影像，YOLO 也可用於工廠瑕疵檢測、交通監控、無人機巡檢與農作物辨識等情境。
-            </p>
+            <h3>Cons</h3>
+            <ul>
+              <li>醫學影像的資料標註成本高，如果標註標準不一致，模型學到的判斷也會受影響。</li>
+              <li>不同醫院、不同儀器、不同影像條件可能造成 domain shift，模型在新資料上表現可能下降。</li>
+              <li>有些病灶不一定有清楚邊界，用 bounding box 框選時可能無法完整呈現病理特徵。</li>
+              <li>醫學情境重視可解釋性，只有框出位置仍不足以說明診斷依據，因此需要專業人員複核。</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section id="task6" class="section">
+    <section id="reflection" class="section">
       <div class="container">
         <div class="section-title">
           <span>Task 06 · 學習反思</span>
           <h2>學習 YOLO 後的反思</h2>
           <p>
-            綜合 AI 對學習的幫助、可能限制，以及我最後真正理解的內容。
+            這一段整理我從初步認識 YOLO，到查資料、比對內容、修正理解後，最後真正學到的成果。
           </p>
         </div>
 
         <div class="card-grid three">
           <article class="card">
-            <h3>AI 對學習的幫助</h3>
+            <h3>GPT 對學習的幫助</h3>
             <p>
-              AI 能快速整理 YOLO 的定義、流程與關鍵名詞，尤其在我不熟悉
-              Bounding Box、confidence score、NMS 時，可以用比較白話的方式解釋。
+              GPT 對我最大的幫助不是直接給答案，而是把我看文章時卡住的地方換一種說法解釋。
+              像 grid cell 負責物體中心點、confidence score 和 IoU 的關係，
+              這些概念如果只看文章，很容易看過去但沒有真的吸收。
             </p>
           </article>
 
           <article class="card">
-            <h3>AI 回答的限制</h3>
+            <h3>GPT 回答的限制</h3>
             <p>
-              AI 有時會把內容講得太簡化，例如只說 YOLO 很快，但沒有補充精度、
-              資料集與硬體條件也會影響實際表現。因此重要內容仍需要查證。
+              GPT 有時會把複雜概念講得比較順，但也可能因此讓人忽略細節。
+              例如 one-stage detector、confidence score、mAP 這些詞，如果只接受簡化版說明，
+              就很容易少掉資料集、評估指標和模型限制的脈絡。
             </p>
           </article>
 
           <article class="card">
-            <h3>我最後真正學會的內容</h3>
+            <h3>我最後真正學到的成果</h3>
             <p>
-              我學會 YOLO 不是單純分類圖片，而是同時做「定位」與「分類」。
-              它的核心價值在於能快速處理整張影像，並輸出可視化的偵測結果。
+              我最後學到的是，YOLO 不是單純「把物體框起來」這麼簡單，
+              而是一套把影像特徵、位置預測、類別判斷和結果篩選整合在一起的偵測流程。
             </p>
           </article>
         </div>
+
+        <article class="reflection" style="margin-top: 1rem;">
+          <p>
+            一開始我對 YOLO 的理解其實很粗略，只知道它常被拿來做即時物件偵測，
+            也知道它可以在圖片中畫出框線。但真正開始整理這份網頁後，
+            才發現自己對許多中間步驟並不熟悉。例如 grid cell 為什麼要負責物體中心點、
+            bounding box 的 confidence score 到底代表什麼、NMS 為什麼可以刪掉重複框，
+            以及 mAP 為什麼比單純 accuracy 更適合評估物件偵測模型。
+          </p>
+
+          <p>
+            在準備這份筆記的過程中，我先閱讀他人的 YOLO 筆記與教學文章，
+            再把看不懂的地方拿去問 GPT。GPT 可以快速把觀念講成比較白話的版本，
+            但我也發現不能只停在這一步，因為有些回答雖然聽起來合理，
+            還是需要回頭對照文章內容、公式定義與流程圖。這個過程讓我從「大概知道 YOLO 是什麼」，
+            慢慢變成能說出它從輸入影像到輸出偵測框的完整邏輯。
+          </p>
+
+          <p>
+            最後整理成網頁時，我也重新思考哪些內容才是學習 YOLO 時真正重要的重點。
+            對我來說，這份作業不是把資料複製到網頁上，而是把分散在不同網站的內容重新消化：
+            哪些是 YOLO 的核心概念、哪些是我容易誤會的地方、哪些需要查證後再修正。
+            經過這個過程後，我比較能用自己的話說明 YOLO 的基本架構，
+            也更能理解物件偵測為什麼需要同時考慮速度、定位準確度、分類能力和應用場景。
+          </p>
+        </article>
       </div>
     </section>
 
@@ -793,18 +901,18 @@
       <div class="container">
         <div class="section-title">
           <span>Task 07 · 資料來源</span>
-          <h2>資料來源與工具</h2>
-          <p>
-            這裡先放基礎資料來源。
-          </p>
+          <h2>所有我參考的資料!</h2>
         </div>
 
         <article class="card">
           <ul class="source-list">
-            <li>Redmon, J., Divvala, S., Girshick, R., & Farhadi, A. You Only Look Once: Unified, Real-Time Object Detection.</li>
-            <li>Ultralytics YOLO Documentation.</li>
-            <li>AI 輔助工具：用於整理 YOLO 概念、流程、問答紀錄與網頁架構草稿。</li>
-            <li>圖片位置目前使用 placeholder，之後可替換成自己的 YOLO 偵測截圖或流程圖。</li>
+            <li>https://medium.com/@alan880603/yolov1-%E8%AB%96%E6%96%87%E7%AD%86%E8%A8%98-f4299dd82c1e</li>
+            <li>https://hackmd.io/FpGcj-7HSIOhZ7dAoF-vVA</li>
+            <li>https://hackmd.io/@jim93073/rktpFJ3CD</li>
+            <li>https://medium.com/lifes-a-struggle/mean-average-precision-map-%E8%A9%95%E4%BC%B0%E7%89%A9%E9%AB%94%E5%81%B5%E6%B8%AC%E6%A8%A1%E5%9E%8B%E5%A5%BD%E5%A3%9E%E7%9A%84%E6%8C%87%E6%A8%99-70a2d2872eb0</li>
+            <li>https://chih-sheng-huang821.medium.com/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-you-only-look-once-yolo-4fb9cf49453c</li>
+            <li>https://www.nightynight.xyz/2022/05/28/ob/yolo/</li>
+            <li>GPT：協助整理學習問題、釐清概念、修正文句與網頁架構。</li>
           </ul>
         </article>
       </div>
