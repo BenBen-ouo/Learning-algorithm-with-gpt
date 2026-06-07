@@ -1,3 +1,4 @@
+```html
 <!DOCTYPE html>
 <html lang="zh-Hant">
 <head>
@@ -26,7 +27,6 @@
       --max-width: 1080px;
       --radius-sm: 0.75rem;
       --radius-md: 1.25rem;
-      --radius-lg: 2rem;
       --font-main: -apple-system, BlinkMacSystemFont, "Segoe UI", "Noto Sans TC",
         "PingFang TC", "Microsoft JhengHei", sans-serif;
     }
@@ -310,7 +310,7 @@
       text-align: left;
       background: rgba(255, 250, 242, 0.66);
       border: 1px solid rgba(222, 214, 201, 0.65);
-      border-radius: var(--radius-lg);
+      border-radius: 1rem;
       padding: 1.25rem 1.35rem;
       box-shadow: var(--shadow);
     }
@@ -408,7 +408,7 @@
       padding: 1.45rem;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: 1rem;
       box-shadow: var(--shadow);
     }
 
@@ -432,26 +432,40 @@
       overflow: hidden;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: 0.55rem;
       box-shadow: var(--shadow);
     }
 
     .note-figure img {
       width: 100%;
-      aspect-ratio: 16 / 10;
-      object-fit: cover;
-      background: var(--surface-soft);
+      max-height: 260px;
+      object-fit: contain;
+      background: #ffffff;
+      border-bottom: 1px solid var(--border);
       transition: transform 0.28s ease;
     }
 
     .note-figure:hover img {
-      transform: scale(1.025);
+      transform: scale(1.01);
     }
 
     .note-figure figcaption {
-      padding: 0.9rem 1rem 1rem;
+      padding: 0.8rem 0.9rem 0.95rem;
       color: var(--muted);
       font-size: 0.92rem;
+    }
+
+    .figure-link-title {
+      display: block;
+      margin-bottom: 0.25rem;
+      color: var(--text);
+      font-weight: 800;
+    }
+
+    .figure-link-title a {
+      color: var(--primary-dark);
+      text-decoration: underline;
+      text-underline-offset: 3px;
     }
 
     .note-figure.is-missing::before {
@@ -513,7 +527,7 @@
       padding: 1rem;
       background: rgba(255, 250, 242, 0.62);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: 1rem;
     }
 
     .chat-bubble {
@@ -589,18 +603,22 @@
     }
 
     .figure-card {
-      padding: 1.35rem;
+      width: min(100%, 900px);
+      margin-inline: auto;
+      padding: 1rem;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: 0.65rem;
       box-shadow: var(--shadow);
     }
 
     .figure-card img {
       width: 100%;
-      border-radius: var(--radius-md);
+      max-height: 520px;
+      object-fit: contain;
+      border-radius: 0.45rem;
       border: 1px solid var(--border);
-      background: var(--surface-soft);
+      background: #ffffff;
     }
 
     .figure-card.is-missing {
@@ -615,7 +633,7 @@
       color: var(--primary-dark);
       background: rgba(143, 179, 162, 0.12);
       border: 1px dashed rgba(69, 111, 97, 0.45);
-      border-radius: var(--radius-md);
+      border-radius: 0.55rem;
       content: "請將 yolo-flow.png 放入 assets/images/";
       font-weight: 800;
       text-align: center;
@@ -681,7 +699,7 @@
       padding: 1.55rem;
       background: var(--surface);
       border: 1px solid var(--border);
-      border-radius: var(--radius-lg);
+      border-radius: 1rem;
       box-shadow: var(--shadow);
     }
 
@@ -950,7 +968,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：YOLO 將影像切成格子的示意圖，用來說明每個格子如何負責偵測物體中心。
+              <span class="figure-link-title">
+                YOLO 圖片切格概念｜
+                <a
+                  href="https://chih-sheng-huang821.medium.com/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-you-only-look-once-yolo-4fb9cf49453c"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  深度學習-物件偵測: You Only Look Once (YOLO)
+                </a>
+              </span>
+              這張圖用來說明 YOLO 會先把圖片切成格子，並由物體中心點所在的格子負責預測該物體。
             </figcaption>
           </figure>
 
@@ -961,18 +989,38 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：含有邊界框與類別標籤的偵測結果圖，適合放在 YOLO 簡介後面。
+              <span class="figure-link-title">
+                Bounding Box 偵測結果｜
+                <a
+                  href="https://medium.com/analytics-vidhya/yolo-explained-5b6f4564f31"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  YOLO Explained
+                </a>
+              </span>
+              這張圖用來呈現物件偵測最後的輸出形式，也就是用邊界框標出物體位置並附上類別判斷。
             </figcaption>
           </figure>
 
           <figure class="note-figure reveal">
             <img
               src="assets/images/yolo-feature.png"
-              alt="CNN 由低階到高階擷取影像特徵的示意圖"
+              alt="特徵圖使用方式示意圖"
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：卷積神經網路的特徵圖或特徵擷取示意圖，用來補充 YOLO 如何理解圖片中的視覺特徵。
+              <span class="figure-link-title">
+                特徵圖使用方式｜
+                <a
+                  href="https://hackmd.io/@jim93073/rktpFJ3CD"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Feature Pyramid Networks for Object Detection
+                </a>
+              </span>
+              這張圖對應「主網路：利用 ResNet 架構提取特徵」段落，可輔助說明模型如何從圖片中逐層取得不同尺度的視覺特徵。
             </figcaption>
           </figure>
         </div>
@@ -1136,14 +1184,17 @@
             onerror="this.closest('.figure-card').classList.add('is-missing')"
           />
           <p class="figure-caption">
-            圖片來源：
-            <a
-              href="https://chih-sheng-huang821.medium.com/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-you-only-look-once-yolo-4fb9cf49453c"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              深度學習-物件偵測: You Only Look Once (YOLO)
-            </a>
+            <span class="figure-link-title">
+              YOLO 物件偵測流程｜
+              <a
+                href="https://chih-sheng-huang821.medium.com/%E6%B7%B1%E5%BA%A6%E5%AD%B8%E7%BF%92-%E7%89%A9%E4%BB%B6%E5%81%B5%E6%B8%AC-you-only-look-once-yolo-4fb9cf49453c"
+                target="_blank"
+                rel="noopener noreferrer"
+              >
+                深度學習-物件偵測: You Only Look Once (YOLO)
+              </a>
+            </span>
+            這張圖用來整理 YOLO 從輸入圖片、切分格子、預測邊界框、計算類別機率，到輸出偵測結果的整體流程。
           </p>
         </article>
 
@@ -1240,7 +1291,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：IoU 交集與聯集示意圖，放在公式區可以幫助理解「框得準不準」。
+              <span class="figure-link-title">
+                IoU 判斷框線重疊程度｜
+                <a
+                  href="https://medium.com/lifes-a-struggle/mean-average-precision-map-%E8%A9%95%E4%BC%B0%E7%89%A9%E9%AB%94%E5%81%B5%E6%B8%AC%E6%A8%A1%E5%9E%8B%E5%A5%BD%E5%A3%9E%E7%9A%84%E6%8C%87%E6%A8%99-70a2d2872eb0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  mean Average Precision (mAP) — 評估物體偵測模型好壞的指標
+                </a>
+              </span>
+              這張圖用來說明預測框與真實框的交集、聯集關係，對理解 IoU 公式很直接。
             </figcaption>
           </figure>
 
@@ -1251,7 +1312,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：NMS 前後比較圖，適合說明為什麼模型最後只留下分數較高的框。
+              <span class="figure-link-title">
+                NMS 前後比較｜
+                <a
+                  href="https://medium.com/@brianhulela/non-maximum-suppression-for-object-detection-9e0ba1f2c250"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  A Python Guide to Reducing Overlapping Bounding Boxes
+                </a>
+              </span>
+              這張圖用來比較非極大值抑制前後的差異，能看出模型如何從多個重疊框中保留最合適的結果。
             </figcaption>
           </figure>
 
@@ -1262,7 +1333,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：Precision-Recall curve 或 mAP 示意圖，適合補充模型評估指標。
+              <span class="figure-link-title">
+                mAP 評估指標｜
+                <a
+                  href="https://medium.com/lifes-a-struggle/mean-average-precision-map-%E8%A9%95%E4%BC%B0%E7%89%A9%E9%AB%94%E5%81%B5%E6%B8%AC%E6%A8%A1%E5%9E%8B%E5%A5%BD%E5%A3%9E%E7%9A%84%E6%8C%87%E6%A8%99-70a2d2872eb0"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  mean Average Precision (mAP) — 評估物體偵測模型好壞的指標
+                </a>
+              </span>
+              這張圖用來補充 Precision、Recall、AP 與 mAP 之間的關係，幫助理解為什麼物件偵測不能只看準確率。
             </figcaption>
           </figure>
         </div>
@@ -1321,7 +1402,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：醫學影像中以 bounding box 標記可疑區域的示意圖。
+              <span class="figure-link-title">
+                醫學影像偵測案例｜
+                <a
+                  href="https://learnopencv.com/yolov9-instance-segmentation-on-medical-dataset/"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  YOLOv9 Instance Segmentation on Medical Dataset
+                </a>
+              </span>
+              這張圖用來輔助說明 YOLO 類模型在醫學影像中標記可疑區域或目標位置的應用方式。
             </figcaption>
           </figure>
 
@@ -1332,7 +1423,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：工業瑕疵檢測圖，可補充 YOLO 在高精度檢查場景中的應用。
+              <span class="figure-link-title">
+                工業瑕疵檢測案例｜
+                <a
+                  href="https://www.ultralytics.com/blog/quality-inspection-in-manufacturing-traditional-vs-deep-learning-methods"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  Quality Inspection with YOLO11
+                </a>
+              </span>
+              這張圖用來補充 YOLO 在製造業檢測中的應用，特別是定位零件缺陷、孔洞或表面異常。
             </figcaption>
           </figure>
 
@@ -1343,7 +1444,17 @@
               onerror="this.closest('.note-figure').classList.add('is-missing')"
             />
             <figcaption>
-              建議圖片：交通或道路物件偵測圖，能清楚呈現多物件即時辨識的效果。
+              <span class="figure-link-title">
+                交通號誌偵測案例｜
+                <a
+                  href="https://www.mdpi.com/2076-3417/13/15/8754"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  An Improved YOLO Model for Traffic Signs Small Target Image Detection
+                </a>
+              </span>
+              這張圖用來說明 YOLO 在道路交通影像中的應用，尤其適合呈現小目標偵測與多物件偵測情境。
             </figcaption>
           </figure>
         </div>
@@ -1444,7 +1555,7 @@
                 Feature Pyramid Networks for Object Detection
               </a>
               <br />
-              補充 feature pyramid 與多尺度特徵融合的概念。
+              補充 feature pyramid 與多尺度特徵融合的概念，也作為 yolo-feature.png 的圖片來源。
             </li>
 
             <li>
@@ -1452,7 +1563,7 @@
                 mean Average Precision (mAP) — 評估物體偵測模型好壞的指標
               </a>
               <br />
-              補充 precision、recall、AP 與 mAP 的評估觀念。
+              補充 precision、recall、AP、mAP 與 IoU 的評估觀念，也作為 yolo-iou.png 與 yolo-map.png 的圖片來源。
             </li>
 
             <li>
@@ -1460,7 +1571,7 @@
                 深度學習-物件偵測: You Only Look Once (YOLO)
               </a>
               <br />
-              YOLO 流程圖、grid cell、bounding box、class probability 與 final detection 說明。
+              YOLO 流程圖、grid cell、bounding box、class probability 與 final detection 說明，也作為 yolo-flow.png 與 yolo-grid.png 的圖片來源。
             </li>
 
             <li>
@@ -1469,6 +1580,46 @@
               </a>
               <br />
               YOLO 筆記文章整理與標題排版參考。
+            </li>
+
+            <li>
+              <a href="https://medium.com/analytics-vidhya/yolo-explained-5b6f4564f31" target="_blank" rel="noopener noreferrer">
+                YOLO Explained
+              </a>
+              <br />
+              作為 yolo-bbox.png 的圖片來源，用來呈現 YOLO 偵測結果中的邊界框與類別標籤。
+            </li>
+
+            <li>
+              <a href="https://medium.com/@brianhulela/non-maximum-suppression-for-object-detection-9e0ba1f2c250" target="_blank" rel="noopener noreferrer">
+                A Python Guide to Reducing Overlapping Bounding Boxes
+              </a>
+              <br />
+              作為 yolo-nms.png 的圖片來源，用來說明非極大值抑制前後的差異。
+            </li>
+
+            <li>
+              <a href="https://learnopencv.com/yolov9-instance-segmentation-on-medical-dataset/" target="_blank" rel="noopener noreferrer">
+                YOLOv9 Instance Segmentation on Medical Dataset
+              </a>
+              <br />
+              作為 yolo-medical.png 的圖片來源，用來補充 YOLO 類模型在醫學影像中的應用。
+            </li>
+
+            <li>
+              <a href="https://www.ultralytics.com/blog/quality-inspection-in-manufacturing-traditional-vs-deep-learning-methods" target="_blank" rel="noopener noreferrer">
+                Quality Inspection with YOLO11
+              </a>
+              <br />
+              作為 yolo-industrial.png 的圖片來源，用來補充 YOLO 在工業瑕疵檢測中的應用。
+            </li>
+
+            <li>
+              <a href="https://www.mdpi.com/2076-3417/13/15/8754" target="_blank" rel="noopener noreferrer">
+                An Improved YOLO Model for Traffic Signs Small Target Image Detection
+              </a>
+              <br />
+              作為 yolo-traffic.png 的圖片來源，用來補充 YOLO 在交通號誌小目標偵測中的應用。
             </li>
 
             <li>
